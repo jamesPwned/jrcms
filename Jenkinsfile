@@ -56,7 +56,7 @@ podTemplate(
         }
         
         stage("Deploy to production environment") {
-            deployToEB('production')
+            deployToEB('prod')
         }
     }
   }
@@ -64,7 +64,7 @@ podTemplate(
 
 def smokeTest(environment) {     
     container('eb') {
-            string test_url = "http://Jrcmsjames-${environment}.us-east-1.elasticbeanstalk.com/"
+            string test_url = "http://Jrcmsjames-${environment}.eba-kde7xmrs.us-east-1.elasticbeanstalk.com/"
             int status = sh(script: "curl -sLI -w '%{http_code}' $test_url -o /dev/null", returnStdout: true)
             if (status !=200 && status != 201) {
                     error("Returned status code = $status when calling $test_url")
